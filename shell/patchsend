@@ -1,0 +1,25 @@
+#!/bin/bash
+case $1 in
+	xx)
+	echo $1
+	;;
+	self)
+git send-email --to zhe.tao@intel.com *.patch #send to myself to check
+	;;
+	other)
+git send-email --to $2 *.patch #send to myself to check
+	;;
+	org)
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc cunming.liang@intel.com --cc bruce.richardson@intel.com *.patch
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc jingjing.wu@intel.com *.patch
+git send-email --to dev@dpdk.org --cc zhe.tao@intel.com *.patch
+	;;
+	reself)
+git send-email --to zhe.tao@intel.com --in-reply-to 1443160365-32705-1-git-send-email-zhe.tao@intel.com *.patch
+	;;
+	reorg)
+git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc jingjing.wu@intel.com --in-reply-to $2  *.patch
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc cunming.liang@intel.com --in-reply-to $2  *.patch
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --in-reply-to $2  *.patch
+
+esac

@@ -1,0 +1,35 @@
+#!/bin/bash
+home=$PWD
+case $1 in
+    patch)
+	git format-patch -$2 --subject-prefix 'PATCH' --signoff -v $3
+	#git format-patch -$2 --subject-prefix 'PATCH RFC' --cover-letter --signoff
+        ;;
+    patchc)
+	git format-patch -$2 --subject-prefix 'PATCH' --cover-letter --signoff -v $3
+	#git format-patch -$2 --subject-prefix 'PATCH RFC' --cover-letter --signoff
+        ;;
+    am)
+	git am -k -3 $2
+	#git format-patch -$2 --subject-prefix 'PATCH RFC' --cover-letter --signoff
+        ;;
+    scp)
+	scp -r *.patch zhetao@shecgisg004.sh.intel.com:~/patch
+        ;;
+    check)
+	tem=`pwd`
+	cd ~/repo/linux-3.18;
+	./scripts/checkpatch.pl ${tem}/$2;
+	echo $home
+        ;;
+    ssh)
+	ssh zhetao@shecgisg004.sh.intel.com
+        ;;
+   sum)
+git log --author="zhe" --pretty=tformat: --numstat \
+| awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s removed lines: %s total lines: %s\n", add, subs, loc }' -
+;;
+
+
+
+esac

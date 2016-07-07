@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='/home/adambynes/repo/bootloader3.0/core_tech_libs/tech'
+let g:netrw_dirhist_2='/home/adambynes/repo/bootloader3.0/core_tech_libs/tech/libs'
+let g:netrw_dirhist_3='/home/adambynes/repo/bootloader3.0'
+let g:netrw_dirhist_4='/home/adambynes/repo/usb'

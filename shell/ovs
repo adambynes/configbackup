@@ -1,0 +1,121 @@
+#!/bin/bash
+src_code=~/repo/dpdk
+ovs_code=/home/adambynes/repo/ovs
+sock_vhost1=/usr/local/var/run/openvswitch/vhost-user-1
+sock_vhost2=/usr/local/var/run/openvswitch/vhost-user-2
+case $1 in
+    make)
+	export DPDK_BUILD=/home/adambynes/repo/dpdk-ovs/x86_64-native-linuxapp-gcc/
+	cd ${ovs_code}/
+	ls
+	echo ${ovs_code}
+	./boot.sh
+	./configure --with-dpdk=$DPDK_BUILD CFLAGS="-g -O0"	
+	make
+        ;;
+    br)
+	sudo ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev
+        ;;
+    port)
+	sudo ovs-vsctl add-port br0 dpdk0 -- set interface dpdk0 type=dpdk        
+	sudo ovs-vsctl add-port br0 dpdk1 -- set interface dpdk1 type=dpdk        
+	;;
+    portvlan)
+	sudo ovs-vsctl add-port br0 dpdk0 tag=100 -- set interface dpdk0 type=dpdk        
+	sudo ovs-vsctl add-port br0 dpdk1 tag=200 -- set interface dpdk1 type=dpdk        
+	;;
+    portdel)
+	sudo ovs-vsctl del-port br0 dpdk0         
+	sudo ovs-vsctl del-port br0 dpdk1         
+	;;
+    install)
+	 cd /home/adambynes/repo/ovs/; sudo make install
+	;;
+    flow)
+	#sudo ovs-ofctl add-flow br0 "in_port=0,actions=output:1"
+ 	#sudo ovs-ofctl add-flow br0 "in_port=1,actions=output:0"
+	sudo ovs-ofctl add-flow br0 "in_port=1,actions=output:2"
+ 	sudo ovs-ofctl add-flow br0 "in_port=2,actions=output:1"
+	;;
+    flowtry)
+	#sudo ovs-ofctl add-flow br0 "in_port=0,actions=output:1"
+ 	#sudo ovs-ofctl add-flow br0 "in_port=1,actions=output:0"
+	sudo ovs-ofctl add-flow br0 "in_port=3,actions=output:2,output:4"
+	;;
+
+    flow2)
+	#sudo ovs-ofctl add-flow br0 "in_port=0,actions=output:1"
+ 	#sudo ovs-ofctl add-flow br0 "in_port=1,actions=output:0"
+	sudo ovs-ofctl add-flow br0 "in_port=3,actions=output:2"
+	;;
+ps)
+	ps -e H -o  pid,tid,%cpu,psr,command
+	;;
+vhost)
+ sudo ovs-vsctl add-port br0 vhost-user-1 -- set Interface vhost-user-1 type=dpdkvhostuser
+ #sudo ovs-vsctl add-port br0 vhost-user-2 -- set Interface vhost-user-2 type=dpdkvhostuser
+;;
+
+
+  close)
+	sudo pkill -9 ovsdb-server
+	sudo pkill -9 ovs-vswitchd
+	sudo rm /usr/local/etc/openvswitch/conf.db 
+	sudo rm $sock_vhost1
+	sudo rm $sock_vhost2
+	;;
+    start)
+	sudo modprobe bridge
+	sleep 1
+	sudo modprobe openvswitch
+	sleep 1	
+	sudo mkdir -p /usr/local/etc/openvswitch
+	sudo ovsdb-tool create
+	sleep 1
+	sudo ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock --pidfile --detach
+	sleep 1
+	sudo ovs-vsctl --no-wait init
+	#sudo ovs-vswitchd --pidfile --detach
+	sudo ovs-vswitchd --dpdk --socket-mem=1024,1024 -c 0f00000 -n 4 --huge-unlink \
+	-- unix:/usr/local/var/run/openvswitch/db.sock --pidfile  --log-file=/home/adambynes/log/vswitch.log >& /home/adambynes/log/vhost.log
+	;;
+    start_gdb)
+	sudo modprobe bridge
+	sleep 1
+	sudo modprobe openvswitch
+	sleep 1	
+	sudo mkdir -p /usr/local/etc/openvswitch
+	sudo ovsdb-tool create
+	sleep 1
+	sudo ovsdb-server --remote=punix:/usr/local/var/run/openvswitch/db.sock --pidfile --detach
+	sleep 1
+	sudo ovs-vsctl --no-wait init
+	#sudo ovs-vswitchd --pidfile --detach
+	sudo gdb --args ovs-vswitchd --dpdk --socket-mem=1024,1024 -c 0f00000 -n 4 --huge-unlink \
+	-- unix:/usr/local/var/run/openvswitch/db.sock --pidfile --detach
+	;;
+ 
+    *)
+        echo please see the help;
+        echo dpdk_make make the dpdk for the default target
+        echo dpdk_make_gcc make the dpdk for the specific target in the specific folder
+        echo dpdk_init insert the necessary mode
+        echo dpdk_bind bind and unbind the device driver
+        ;;
+esac
+
+exit
+
+ofctl show <br-name>
+ovs-ofctl dump-flows <br-name>
+ovs-appctl dpif/show 
+ovs-appctl dpif/dump-flows <br-name>
+Ovs-dpctl show
+
+ovs-ofctl show br0
+
+ovs-vsctl add-port br0 tap0 tag=100
+
+ovs-vsctl get Interface eth0 ofport
+
+

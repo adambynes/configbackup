@@ -1,0 +1,76 @@
+#!/bin/bash
+exename=$(basename $0)
+echo $exename
+case $exename in
+    oigrep)
+	grep -n --include "$3" --color -r "$1" $2
+        ;;
+    ogrep)
+	grep -n --color -i  -r "$1" $2
+        ;;
+    ofind)
+	find $2 -iname "*$1*"
+        ;;
+    mpi)
+	mpstat -P $2 1 
+        ;;
+    psr)
+	ps -mo pid,tid,%cpu,psr -p `pidof $2`
+        ;;
+    make_app)
+        echo "build the dpdk app in the current folder";
+	export RTE_SDK=${src_code};
+        make
+        ;;
+    init)
+        #sudo modprobe uio_pci_generic;
+        #sudo modprobe vfio-pci;
+	sudo modprobe uio
+	sudo insmod ./x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
+        ;;
+    bind)
+        /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py --status
+        ;;
+    bind1)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:82:00.0 0000:82:00.1 0000:82:00.2 0000:82:00.3
+        ;;
+    unbind1)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  82:00.0 82:00.1 82:00.2 82:00.3
+        ;;
+    bind0)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:06:00.0 0000:06:00.1 
+        ;;
+    ubind0)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  0000:06:00.0 0000:06:00.1 
+        ;;
+    testpmd1)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    testpmd0)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f0 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	# sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    testpmd0_gdb)
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f0 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	;;
+    testpmd1_gdb)
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	;;
+
+ 
+    *)
+        echo please see the help;
+        echo dpdk_make make the dpdk for the default target
+        echo dpdk_make_gcc make the dpdk for the specific target in the specific folder
+        echo dpdk_init insert the necessary mode
+        echo dpdk_bind bind and unbind the device driver
+        ;;
+esac
+#

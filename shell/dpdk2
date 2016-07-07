@@ -1,0 +1,211 @@
+#!/bin/bash
+src_code=~/repo/dpdk
+case $1 in
+    vnc)
+	sudo vncserver -geometry 1600x1200
+        ;;
+    test)
+	echo ${1-start} ${2-start}
+
+        ;;
+    exit)
+	
+	exit 10
+        ;;
+    vtune)
+	cd /opt/intel/vtune_amplifier_xe
+	echo dovtune
+	source amplxe-vars.sh
+	./bin64/amplxe-gui &
+        ;;
+    make_gcc)
+        echo "build the dpdk in the specific folder";
+        #make install T=x86_64-native-linuxapp-gcc
+        make install T=x86_64-native-linuxapp-gcc DESTDIR=install
+        ;;
+    make_gdb)
+        echo "build the dpdk in the specific folder";
+        #make install T=x86_64-native-linuxapp-gcc
+	cd ./x86_64-native-linuxapp-gcc;
+	export EXTRA_CFLAGS="-O0 -g"
+	make -j V=10
+        ;;
+    make)
+	cd ./x86_64-native-linuxapp-gcc;
+	make -j 
+        ;;
+    make_app)
+        echo "build the dpdk app in the current folder";
+	export RTE_SDK=${src_code};
+        make
+        ;;
+    init)
+        #sudo modprobe uio_pci_generic;
+        #sudo modprobe vfio-pci;
+	sudo modprobe uio
+	sudo modprobe configfs
+	sudo insmod ./x86_64-native-linuxapp-gcc/kmod/igb_uio.ko
+	sudo modprobe pci-stub
+        ;;
+    bind)
+        /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py --status
+        ;;
+    bind3)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:06:00.0
+        ;;
+    unbind3)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  0000:06:00.0
+        ;;
+    bind1)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:82:00.0 0000:82:00.1 #0000:82:00.2 0000:82:00.3
+        #sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:81:00.0 0000:81:00.1 0000:81:00.2 0000:81:00.3
+        ;;
+    bindvf1)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b i40evf 0000:82:02.0 
+        #sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:81:00.0 0000:81:00.1 0000:81:00.2 0000:81:00.3
+        ;;
+    unbindvf1)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  82:02.0 82:02.1
+        ;;
+    unbind1)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  82:00.0 82:00.1 82:00.2 82:00.3
+        ;;
+    bind0)
+       sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:06:00.0 0000:06:00.1 
+        ;;
+    ubind0)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  0000:06:00.0 0000:06:00.1 
+        ;;
+    bind2)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:82:00.0 0000:82:00.1 0000:82:00.2 0000:82:00.3
+        ;;
+    unbind2)
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  0000:82:00.0 0000:82:00.1 0000:82:00.2 0000:82:00.3
+        ;;
+    export)
+	export EXTRA_CFLAGS=-g
+        ;;
+    unexport)
+	export EXTRA_CFLAGS=
+        ;;
+    vfmac)
+   	sudo ip link set i40evf vf 0 mac 00:11:22:33:44:11
+    	sudo ip link set i40evf vf 1 mac 00:11:22:33:44:12
+	;;
+    bindvf)
+    sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:82:00.0/max_vfs'
+    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:82:02.0 > /sys/bus/pci/devices/0000:82:02.0/driver/unbind'
+    sudo sh -c 'echo 0000:82:02.0 > /sys/bus/pci/drivers/pci-stub/bind'
+
+    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:82:02.1 > /sys/bus/pci/devices/0000:82:02.1/driver/unbind'
+    sudo sh -c 'echo 0000:82:02.1 > /sys/bus/pci/drivers/pci-stub/bind'
+
+	;;
+    bindpf)
+    sudo sh -c 'echo 0000:81:00.0 > /sys/bus/pci/devices/0000:81:00.0/driver/unbind'
+sleep 1
+    sudo sh -c 'echo 0000:81:00.0 > /sys/bus/pci/drivers/i40e/bind'
+;;
+    bindvf4)
+#    sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:81:00.0/max_vfs'
+#    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:81:02.0 > /sys/bus/pci/devices/0000:81:02.0/driver/unbind'
+    sudo sh -c 'echo 0000:81:02.0 > /sys/bus/pci/drivers/pci-stub/bind'
+#
+#    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+#    sudo sh -c 'echo 0000:81:02.1 > /sys/bus/pci/devices/0000:81:02.1/driver/unbind'
+#    sudo sh -c 'echo 0000:81:02.1 > /sys/bus/pci/drivers/pci-stub/bind'
+
+	;;
+    bindvf2)
+    sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:81:00.1/max_vfs'
+	;;
+    bindvf3)
+    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:06:02.0 > /sys/bus/pci/devices/0000:06:02.0/driver/unbind'
+    sudo sh -c 'echo 0000:06:02.0 > /sys/bus/pci/drivers/pci-stub/bind'
+
+    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:06:02.1 > /sys/bus/pci/devices/0000:06:02.1/driver/unbind'
+    sudo sh -c 'echo 0000:06:02.1 > /sys/bus/pci/drivers/pci-stub/bind'
+
+	;;
+    bindvf5)
+    sudo sh -c 'echo "8086 1572" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:82:00.0 > /sys/bus/pci/devices/0000:82:00.0/driver/unbind'
+    sudo sh -c 'echo 0000:82:00.0 > /sys/bus/pci/drivers/pci-stub/bind'
+    sudo sh -c 'echo 0000:82:00.1 > /sys/bus/pci/devices/0000:82:00.1/driver/unbind'
+    sudo sh -c 'echo 0000:82:00.1 > /sys/bus/pci/drivers/pci-stub/bind'
+    sudo sh -c 'echo 0000:82:00.2 > /sys/bus/pci/devices/0000:82:00.2/driver/unbind'
+    sudo sh -c 'echo 0000:82:00.2 > /sys/bus/pci/drivers/pci-stub/bind'
+    sudo sh -c 'echo 0000:82:00.3 > /sys/bus/pci/devices/0000:82:00.3/driver/unbind'
+    sudo sh -c 'echo 0000:82:00.3 > /sys/bus/pci/drivers/pci-stub/bind'
+
+	;;
+    testpmd1)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --socket-mem=1024,1024 -w 82:00.0 -w 82:00.1 -c 0300000 -n 4 --huge-unlink --log-level=8 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    tso)
+	 sudo gdb --args  ./x86_64-native-linuxapp-gcc/app/testpmd --socket-mem=1024,1024 -w 82:00.0 -w 82:00.1 -c 0300000 -n 4 --huge-unlink --log-level=8 -- -i --numa  --txqflags=0 --rxd 1024 --txd 1024
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    floating)
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --socket-mem=1024,1024 -w 06:00.0,enable_floating=1 -c 0300000 -n 4 --huge-unlink -- -i --numa  --rxd 1024 --txd 1024
+	;;
+    floating2)
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --floating --socket-mem=1024,1024 -w 81:00.1 -c 0300000 -n 4 --huge-unlink -- -i --numa  --rxd 1024 --txd 1024
+	;;
+    ipv6)
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd  --socket-mem=1024,1024 -c 0300000 -n 4 --huge-unlink -- -i --numa --portmask=0x1 --txqflags=0 --port-topology=loop 
+	;;
+    adam)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    testpmd0)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f0 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	# sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    testpmd0_gdb)
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f0 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	;;
+    testpmd1_gdb)
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c 0300000 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd  --socket-mem=1024,1024 -c 0300000 -n 4 --huge-unlink --log-level=8 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	;;
+    floating_gdb)
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd  --socket-mem=1024,1024 -w 81:00.0,enable_floating=1,floating_bitmap=0x1 -c 0300000 -n 4 --huge-unlink -- -i --numa  --rxd 1024 --txd 1024
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd  --socket-mem=1024,1024 -w "82:00.0,enable_floating_veb=1,floating_veb_list=0;4-6" -c 0300000 -n 4 --huge-unlink --log-level=8 -- -i --numa  --rxd 1024 --txd 1024
+	;;
+    floating2_gdb)
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd --floating --socket-mem=1024,1024 -w 81:00.1 -c 0300000 -n 4 --huge-unlink -- -i --numa  --rxd 1024 --txd 1024
+	;;
+    ipv6_gdb)
+	 sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd  --socket-mem=1024,1024 -c 0300000 -n 4 --huge-unlink -- -i --numa --portmask=0x1 --txqflags=0 --port-topology=loop 
+	;;
+    qinq)
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo gdb --args ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c 0x1ffff -n 4 -w 81:00.0 -w 81:00.1 -w 81:00.2 -w 81:00.3 -- -i --coremask=0x1fffe --rxq=16 --txq=16
+	;;
+
+ 
+    *)
+        echo please see the help;
+        echo dpdk_make make the dpdk for the default target
+        echo dpdk_make_gcc make the dpdk for the specific target in the specific folder
+        echo dpdk_init insert the necessary mode
+        echo dpdk_bind bind and unbind the device driver
+        ;;
+esac

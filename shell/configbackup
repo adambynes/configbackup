@@ -1,0 +1,15 @@
+#!/bin/bash
+exename=$(basename $0)
+backup=~/configbackup
+echo $exename
+case $exename in
+    oigrep)
+        ;;
+ 
+    *)
+        ;;
+esac
+cp -r ~/shell/ $backup
+cp -r ~/.vim $backup
+cp ~/.vimrc $backup
+cp ~/.tmux.conf $backup

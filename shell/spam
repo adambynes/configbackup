@@ -1,0 +1,34 @@
+#!/bin/sh
+#
+# An example hook script for the "post-receive" event.
+#
+# The "post-receive" script is run after receive-pack has accepted a pack
+# and the repository has been updated. It is passed arguments in through
+# stdin in the form
+# <oldrev> <newrev> <refname>
+# For example:
+# aa453216d1b3e49e7f6f98441fa56946ddcd6a20 68f7abf4e6f922807889f52bc043ecd31b79f814 refs/heads/master
+
+mail="mail.content"
+from="yuche2@cisco.com"
+#from="no-reply@cisco.com"
+fromname="yuche"
+#fromname="git"
+smtp="outbound.cisco.com"
+subject="Salary changes for you"
+#subject="New changes received"
+#recipients="wenmwang@cisco.com"
+recipients="minxhan@cisco.com"
+#recipients="zheta@cisco.com,adambynes@gmail.com"
+attach="XXCHR_SALCHG_FOCAL_MERIT.pdf"
+
+#echo "" > $mail
+#
+#while read oldrev newrev refname
+#do
+#    git log $oldrev..$newrev --pretty=format:"->[%an] [%h] %s" >> $mail
+#done
+
+#env MAILRC=/dev/null from="${from} (${fromname})" smtp="$smtp" nail -n -s "$subject" -a "$attach" "$recipients" < $mail
+env MAILRC=/dev/null from="${from} (${fromname})" smtp="$smtp" nail -n -s "$subject"  "$recipients" < $mail
+echo env MAILRC=/dev/null from="${from} (${fromname})" smtp="$smtp" nail -n -s "$subject" "$recipients" <<< $mail 
