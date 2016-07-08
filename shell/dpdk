@@ -82,8 +82,7 @@ case $1 in
        sudo  /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -u  0000:06:00.0
         ;;
     bind1)
-        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:81:00.0 0000:81:00.1
-        #sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:81:00.0 0000:81:00.1 0000:81:00.2 0000:81:00.3
+        sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:02:00.0 0000:02:00.1 #0000:02:00.2 0000:02:00.3
         ;;
     bindvf1)
         sudo /home/adambynes/repo/dpdk/tools/dpdk_nic_bind.py -b igb_uio 0000:82:02.0 0000:82:02.1
@@ -120,19 +119,25 @@ case $1 in
     bindvf)
     #sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:81:00.0/max_vfs'
     sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
-    sudo sh -c 'echo 0000:82:02.0 > /sys/bus/pci/devices/0000:82:02.0/driver/unbind'
-    sudo sh -c 'echo 0000:82:02.0 > /sys/bus/pci/drivers/pci-stub/bind'
+    sudo sh -c 'echo 0000:02:0e.0 > /sys/bus/pci/devices/0000:02:0e.0/driver/unbind'
+    sudo sh -c 'echo 0000:02:0e.0 > /sys/bus/pci/drivers/pci-stub/bind'
 
     sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
-    sudo sh -c 'echo 0000:82:02.1 > /sys/bus/pci/devices/0000:82:02.1/driver/unbind'
-    sudo sh -c 'echo 0000:82:02.1 > /sys/bus/pci/drivers/pci-stub/bind'
+    sudo sh -c 'echo 0000:02:0e.1 > /sys/bus/pci/devices/0000:02:0e.1/driver/unbind'
+    sudo sh -c 'echo 0000:02:0e.1 > /sys/bus/pci/drivers/pci-stub/bind'
 
 	;;
     bindpf)
-    sudo sh -c 'echo 0000:81:00.0 > /sys/bus/pci/devices/0000:81:00.0/driver/unbind'
-sleep 1
-    sudo sh -c 'echo 0000:81:00.0 > /sys/bus/pci/drivers/i40e/bind'
-;;
+    #sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:81:00.0/max_vfs'
+    sudo sh -c 'echo "8086 1572" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:02:00.3 > /sys/bus/pci/devices/0000:02:00.3/driver/unbind'
+    sudo sh -c 'echo 0000:02:00.3 > /sys/bus/pci/drivers/pci-stub/bind'
+
+    sudo sh -c 'echo "8086 1572" > /sys/bus/pci/drivers/pci-stub/new_id'
+    sudo sh -c 'echo 0000:02:00.2 > /sys/bus/pci/devices/0000:02:00.2/driver/unbind'
+    sudo sh -c 'echo 0000:02:00.2 > /sys/bus/pci/drivers/pci-stub/bind'
+
+	;;
     bindvf4)
 #    sudo sh -c 'echo 2 > /sys/bus/pci/devices/0000:81:00.0/max_vfs'
 #    sudo sh -c 'echo "8086 154c" > /sys/bus/pci/drivers/pci-stub/new_id'
@@ -160,7 +165,13 @@ sleep 1
     testpmd1)
 	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
 	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
-	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --log-level=8 --socket-mem=1024,1024 -c 0300000 -n 4 --huge-unlink -- -i --numa  --rxd 1024 --txd 1024
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --log-level=8 --socket-mem=1024 -c 30 -w 02:00.0 -n 4 --huge-unlink --file-prefix=adam1 -- -i --numa  --rxd 1024 --txd 1024
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
+	;;
+    testpmd2)
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 --log-level 4  -- -i
+	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c f -n 4 -- -i
+	 sudo ./x86_64-native-linuxapp-gcc/app/testpmd --log-level=8 --socket-mem=1024 -c 0c -w 02:00.1 -n 4 --huge-unlink --file-prefix=adam2 -- -i --numa  --rxd 1024 --txd 1024
 	 #sudo ./x86_64-native-linuxapp-gcc/app/testpmd -c ff00000 -n 4 -- -i --numa  
 	;;
     floating)

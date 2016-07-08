@@ -9,7 +9,7 @@ case $exename in
     *)
         ;;
 esac
-cp -r ~/shell/ $backup
-cp -r ~/.vim $backup
-cp ~/.vimrc $backup
-cp ~/.tmux.conf $backup
+sudo cp -r ~/shell/ $backup
+sudo cp -r ~/.vim $backup
+sudo cp ~/.vimrc $backup
+sudo cp ~/.tmux.conf $backup

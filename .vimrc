@@ -1,7 +1,6 @@
 set path=./**,**,
 "set colorcolumn=80
 nmap csm :set colorcolumn=75<CR> 
-nmap csi :Gblame<CR>o<C-W>j:q<CR><C-W>k 
 set hls
 set tabstop=8
 highlight OverLength ctermbg=yellow ctermfg=black guibg=#592929
@@ -26,6 +25,9 @@ nmap csv :cs find g
 nmap csq :q<CR> 
 nmap csh :sp<CR> 
 nmap csu :vs<CR> 
+nmap csi :exe Adammax()<CR> 
+nmap csf :exe Adammaxh()<CR> 
+nmap csb :Gblame<CR>o<C-W>j:q<CR><C-W>kcsi 
 " Using 'CTRL-spacebar' then a search type makes the vim window
 " split horizontally, with search result displayed in
 " the new window.
