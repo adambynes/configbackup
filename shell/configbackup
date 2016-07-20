@@ -2,14 +2,17 @@
 exename=$(basename $0)
 backup=~/configbackup
 echo $exename
-case $exename in
-    oigrep)
+case $1 in
+    copy)
+sudo cp -r ~/shell/ $backup
+sudo cp -r ~/.vim $backup
+sudo cp ~/.vimrc $backup
+sudo cp ~/.tmux.conf $backup
+        ;;
+    clone)
+	git clone https://github.com/adambynes/configbackup.git
         ;;
  
     *)
         ;;
 esac
-sudo cp -r ~/shell/ $backup
-sudo cp -r ~/.vim $backup
-sudo cp ~/.vimrc $backup
-sudo cp ~/.tmux.conf $backup

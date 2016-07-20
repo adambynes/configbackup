@@ -4,6 +4,13 @@ case $1 in
     vnc)
 	sudo vncserver -geometry 1600x1200
         ;;
+    vtune)
+	cd /opt/intel/vtune_amplifier_xe
+	source amplxe-vars.sh
+	cd /opt/intel/vtune_amplifier_xe/bin64
+	echo $PATH
+	sudo ./amplxe-gui  
+        ;;
     test)
 	echo ${1-start} ${2-start}
 

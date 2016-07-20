@@ -14,12 +14,21 @@ git send-email --to $2 *.patch #send to myself to check
 #git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc jingjing.wu@intel.com *.patch
 git send-email --to dev@dpdk.org --cc zhe.tao@intel.com *.patch
 	;;
+	org2)
+git send-email --to dev@dpdk.org --cc wenzhuo.lu@intel.com --cc zhe.tao@intel.com --cc konstantin.ananyev@intel.com --cc bruce.richardson@intel.com --cc jing.d.chen@intel.com --cc cunming.liang@intel.com --cc jingjing.wu@intel.com --cc helin.zhang@intel.com *.patch
+	;;
 	reself)
 git send-email --to zhe.tao@intel.com --in-reply-to 1443160365-32705-1-git-send-email-zhe.tao@intel.com *.patch
 	;;
+	reorg2)
+git send-email --to dev@dpdk.org --cc wenzhuo.lu@intel.com --cc zhe.tao@intel.com --cc konstantin.ananyev@intel.com --cc bruce.richardson@intel.com --cc jing.d.chen@intel.com --cc cunming.liang@intel.com --cc jingjing.wu@intel.com --cc helin.zhang@intel.com --in-reply-to $2  *.patch
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc cunming.liang@intel.com --in-reply-to $2  *.patch
+#git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --in-reply-to $2  *.patch
+;;
 	reorg)
 git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc jingjing.wu@intel.com --in-reply-to $2  *.patch
 #git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --cc cunming.liang@intel.com --in-reply-to $2  *.patch
 #git send-email --to dev@dpdk.org --cc zhe.tao@intel.com --in-reply-to $2  *.patch
+;;
 
 esac

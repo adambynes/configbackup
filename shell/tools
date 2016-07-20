@@ -6,6 +6,10 @@ case $1 in
     mpi)
 	mpstat -P $2 1 
         ;;
+    lines)
+	find -iname "*$2*" | xargs cat | wc -l 
+#find . -type f -exec wc -l {} \; | awk '{ SUM += $0} END { print SUM }'
+        ;;
     psr)
 	ps -mo pid,tid,%cpu,psr -p `pidof $2`
         ;;

@@ -1,10 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
-let g:netrw_dirhist_1='/home/adambynes/repo/patch/16.07/v3'
-let g:netrw_dirhist_2='/home/adambynes/repo/patch/16.07'
-let g:netrw_dirhist_3='/home/adambynes/repo/patch/16.07/v2'
-let g:netrw_dirhist_4='/home/adambynes/repo/patch/16.07'
-let g:netrw_dirhist_5='/home/adambynes/repo/patch/16.07/v1'
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='/home/adambynes/repo/openonload-201509-u1/src/lib/transport'
+let g:netrw_dirhist_2='/home/adambynes/repo/openonload-201509-u1/src/lib'
+let g:netrw_dirhist_3='/home/adambynes/repo/openonload-201509-u1/src'
+let g:netrw_dirhist_4='/home/adambynes/repo/openonload-201509-u1/src/driver'
+let g:netrw_dirhist_5='/home/adambynes/repo/openonload-201509-u1/src/driver/linux_net'
 let g:netrw_dirhist_6='/home/adambynes/shell'
-let g:netrw_dirhist_7='/home/adambynes/vmimg'
-let g:netrw_dirhist_8='/home/adambynes/software/vmimg'
+let g:netrw_dirhist_7='/home/adambynes/repo2/linux-4.2/drivers/net/ethernet/intel/i40e'
