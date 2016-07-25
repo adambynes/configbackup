@@ -3,6 +3,9 @@ case $1 in
     mp)
 	mpstat -P ALL -u
         ;;
+    www)
+	cd ~/web;w3m www.bing.com
+        ;;
     mpi)
 	mpstat -P $2 1 
         ;;

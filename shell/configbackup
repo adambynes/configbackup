@@ -13,9 +13,13 @@ sudo cp -r ~/.esmtprc $backup/mail
 sudo cp -r ~/.procmailrc $backup/mail
 sudo cp -r ~/.fetchmailrc $backup/mail
 sudo cp -r ~/.mailcap $backup/mail
+sudo cp -r ~/.w3m $backup/
         ;;
     clone)
 	git clone https://github.com/adambynes/configbackup.git
+        ;;
+    add)
+	git add -u .; git commit -m "`date`"
         ;;
  
     *)

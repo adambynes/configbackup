@@ -1,5 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/adambynes/repo/dpdk/drivers/net/i40e'
 let g:netrw_dirhist_2='/home/adambynes/software/vmimg/img'
 let g:netrw_dirhist_3='/home/adambynes/software/vmimg'
+let g:netrw_dirhist_4='/home/adambynes/shell'
+let g:netrw_dirhist_5='/home/adambynes'
+let g:netrw_dirhist_6='/home/adambynes/configbackup'
+let g:netrw_dirhist_7='/home/adambynes/configbackup/mail'
