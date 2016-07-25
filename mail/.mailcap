@@ -1,0 +1,15 @@
+text/html;                      w3m %s; nametemplate=%s.html
+text/html;                      w3m -dump %s; nametemplate=%s.html; copiousoutput
+image/*;                        eog %s > /dev/null
+application/pdf;                evince %s >/dev/null
+application/pptx;                soffice %s >/dev/null
+application/msword;                soffice %s >/dev/null
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; soffice %s >/dev/null
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; soffice %s >/dev/null
+application/vnd.openxmlformats-officedocument.presentationml.presentation; soffice %s >/dev/null
+audio/*;			mplayer %s >/dev/null
+#application/octet-stream;       mate-terminal -e "less -R %s"
+# application/octet-stream;       echo %s &> /tmp/debug
+application/x-zip-compressed; 	file-roller %s
+video/x-msvideo; mplayer %s
+application/vnd.ms-excel;	soffice %s >/dev/null

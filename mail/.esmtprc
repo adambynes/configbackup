@@ -1,0 +1,7 @@
+identity adambynes@outlook.com
+	hostname smtp-mail.outlook.com:587
+	username "adambynes@outlook.com"
+	password "19860225@Tao"
+	starttls required
+
+mda = "/usr/bin/procmail -d %T"

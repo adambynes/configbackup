@@ -1,0 +1,145 @@
+set folder="/home/adambynes/mail/"
+
+# the inbox
+set spoolfile=/home/adambynes/mail/inbox
+
+set realname="AdamBynes"
+set sendmail="/usr/bin/esmtp"
+set from="adambynes@outlook.com"
+set use_from=yes
+set use_envelope_from=yes
+
+mailboxes =inbox
+mailboxes =maildpdk
+mailboxes =Todo
+mailboxes =WSR
+mailboxes =import
+
+# keep sent mails
+set copy=yes
+set record="/home/adambynes/mail/sent"
+
+
+#set mime_forward=yes
+#set mime_forward_rest=yes
+
+# view html better
+auto_view text/html
+
+#set signature = "~/.signature"
+set edit_headers
+
+# --------------
+#    * sort * 
+# --------------
+#
+set sort=threads
+# sort them based on the time when you received them.
+set sort_aux=reverse-last-date-received
+#set sort_browser=date
+
+
+# automatically include a copy of the original message when you reply to a message
+set include=yes
+
+# This tells Mutt to beep when you receive a new message while your mailbox is open
+# set beep_new=yes
+#
+
+#
+# Check mail by 'G'
+#
+macro index G <shell-escape>'/usr/bin/fetchmail'<enter> 'Checking new mails...'
+
+#macro index M "T.*\n;WN" "Mark all messages as read"
+
+macro index I "c=inbox\n"	"Change to inbox"
+macro index K "c=maildpdk\n"	"Change to dpdk inbox"
+macro index S "c=sent\n"	"Change to sent inbox"
+macro index F "c=Todo\n"		"Change to linux-mm inbox"
+
+# ------------
+# Key binds
+# -----------
+#
+#bind browser j next-line
+#bind browser k previous-line
+bind generic 1 first-entry       # move to the first entry
+bind generic 2 search-opposite       # move to the first entry
+
+# -------------
+# Color options 
+# ------------
+#
+ #Black Text on White Background
+ color hdrdefault black white
+ color quoted black white
+ color signature black white
+ color status white black
+ color indicator white black
+ color normal black white
+# #
+#
+# #White Text on Black Background
+# color hdrdefault white black
+# color quoted white black
+# color signature white black
+# color status black white
+# color indicator black white
+# color normal white black
+# #
+#
+# #White Text on Blue Background
+# color hdrdefault white blue
+# color quoted white blue
+# color signature white blue
+# color status yellow blue
+# color indicator yellow blue
+# color normal white blue
+# #
+#
+#Green Text on Black Background
+#color hdrdefault green black
+#color quoted green black
+#color signature green black
+#color status black green
+#color indicator black green
+#color normal cyan black
+
+
+# #
+#
+# #Amber Text on Black Background
+# color hdrdefault yellow black
+# color quoted yellow black
+# color signature yellow black
+# color status black yellow
+# color indicator black yellow
+# color normal yellow black
+#source ~/.mutt/color_header.muttrc
+#source ~/.mutt/color_body.muttrc
+#source ~/.mutt/color_index.muttrc
+
+# directly related to me; hilight it in bright
+#color index blue	black "~c yuanhan"
+#color index brightblue	black "~t yuanhan"
+#
+#
+#
+##color body  white	default '.'
+#
+## colorize patch
+#color body  green	black  "^\\+.*"
+#color body  red  	black  "^-.*"
+#color body  brightwhite black  "^diff .*"
+#color body  brightwhite black  "^index .*"
+#color body  brightwhite black  "^--- .*"
+#color body  brightwhite black  "^\\+\\+\\+ .*"
+#
+
+alias dpdk_dev dpdk <dev@dpdk.org>
+alias DPDKM NPG-PRC-SW DPDK <npg-prc-sw.dpdk@intel.com>
+alias qemu qemu <qemu-devel@nongnu.org>
+alias zhetao adambynes@gmail.com, 392820452@qq.com
+alias heqing \"Zhu, Heqing\" <heqing.zhu@intel.com>
+alias heling \"zhang, Helin\" <helin.zhang@intel.com>

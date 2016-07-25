@@ -8,6 +8,11 @@ sudo cp -r ~/shell/ $backup
 sudo cp -r ~/.vim $backup
 sudo cp ~/.vimrc $backup
 sudo cp ~/.tmux.conf $backup
+sudo cp -r ~/.muttrc $backup/mail
+sudo cp -r ~/.esmtprc $backup/mail
+sudo cp -r ~/.procmailrc $backup/mail
+sudo cp -r ~/.fetchmailrc $backup/mail
+sudo cp -r ~/.mailcap $backup/mail
         ;;
     clone)
 	git clone https://github.com/adambynes/configbackup.git

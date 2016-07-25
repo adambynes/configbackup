@@ -1,0 +1,33 @@
+MAILDIR=/home/adambynes/mail/
+LOGFILE=$MAILDIR/.procmail.log
+LOG="
+"
+VERBOSE=yes
+
+
+:0:
+* ^List-Id:.*dev.dpdk.org.*
+/home/adambynes/mail/maildpdk
+
+:0:
+* ^To:.*dev.dpdk.org.*
+/home/adambynes/mail/maildpdk
+
+:0:
+* ^To:.*dev@openvswitch.org.*
+/home/adambynes/mail/mailovs
+
+:0:
+* ^List-Id:.*dev.openvswitch.org.*
+/home/adambynes/mail/mailovs
+
+:0:
+* ^CC:.*dev.dpdk.org.*
+/home/adambynes/mail/maildpdk
+
+:0 Wh: msgid.lock
+| formail -D 8192 .msgid.cache
+
+:0:
+*
+/home/adambynes/mail/inbox

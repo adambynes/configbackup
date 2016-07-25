@@ -1,9 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/home/adambynes/repo/openonload-201509-u1/src/lib/transport'
-let g:netrw_dirhist_2='/home/adambynes/repo/openonload-201509-u1/src/lib'
-let g:netrw_dirhist_3='/home/adambynes/repo/openonload-201509-u1/src'
-let g:netrw_dirhist_4='/home/adambynes/repo/openonload-201509-u1/src/driver'
-let g:netrw_dirhist_5='/home/adambynes/repo/openonload-201509-u1/src/driver/linux_net'
-let g:netrw_dirhist_6='/home/adambynes/shell'
-let g:netrw_dirhist_7='/home/adambynes/repo2/linux-4.2/drivers/net/ethernet/intel/i40e'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/adambynes/repo/dpdk/drivers/net/i40e'
+let g:netrw_dirhist_2='/home/adambynes/software/vmimg/img'
+let g:netrw_dirhist_3='/home/adambynes/software/vmimg'
