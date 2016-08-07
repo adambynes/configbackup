@@ -1,6 +1,9 @@
 #!/bin/bash
 home=$PWD
 case $1 in
+    commit)
+	git commit -m "`date`"
+        ;;
     patch)
 	git format-patch -$2 --subject-prefix 'PATCH' --signoff -v $3
 	#git format-patch -$2 --subject-prefix 'PATCH RFC' --cover-letter --signoff

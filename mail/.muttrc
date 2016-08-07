@@ -13,7 +13,8 @@ mailboxes =inbox
 mailboxes =maildpdk
 mailboxes =Todo
 mailboxes =WSR
-mailboxes =import
+mailboxes =mailovs
+mailboxes =mailvpp
 
 # keep sent mails
 set copy=yes
@@ -55,8 +56,9 @@ macro index G <shell-escape>'/usr/bin/fetchmail'<enter> 'Checking new mails...'
 
 macro index I "c=inbox\n"	"Change to inbox"
 macro index K "c=maildpdk\n"	"Change to dpdk inbox"
-macro index S "c=sent\n"	"Change to sent inbox"
-macro index F "c=Todo\n"		"Change to linux-mm inbox"
+macro index S "c=mailovs\n"	"Change to ovs inbox"
+macro index F "c=mailvpp\n"	"Change to vpp inbox"
+macro index F "c=mailvpp\n"	"Change to vpp inbox"
 
 # ------------
 # Key binds

@@ -22,6 +22,14 @@ VERBOSE=yes
 /home/adambynes/mail/mailovs
 
 :0:
+* ^To:.*vpp-dev.*
+/home/adambynes/mail/mailvpp
+
+:0:
+* ^List-Id:.*vpp-dev.*
+/home/adambynes/mail/mailvpp
+
+:0:
 * ^CC:.*dev.dpdk.org.*
 /home/adambynes/mail/maildpdk
 

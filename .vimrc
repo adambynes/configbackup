@@ -91,6 +91,7 @@ nmap grepw :vimgrep /<C-R>=expand("<cword>")<CR>/j
 nmap grepo :vimgrep /<C-R>=expand("<cword>")<CR>/j <C-R>=expand("%")<CR><CR>
 nmap grepd :vimgrep /<C-R>=expand("<cword>")<CR>/j <C-R>=expand("%:h")<CR>/**/* 
 nmap grepl :!ls -l  <C-R>=expand("%")<CR>
+nmap ccw :!pandoc <C-R>=expand("%")<CR>\|w3m<CR>
 "nmap wwt :let g:winManagerWindowLayout = 'TagList'
 "nmap wwf :let g:winManagerWindowLayout e 'FileExplorer'
 "nmap <C-r>  <C-w>=
