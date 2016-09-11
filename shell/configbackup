@@ -14,13 +14,14 @@ cp -r ~/.procmailrc $backup/mail
 cp -r ~/.fetchmailrc $backup/mail
 cp -r ~/.mailcap $backup/mail
 cp -r ~/.w3m $backup/
+cp -r ~/.bashrc $backup/
         ;;
     clone)
 	git clone https://github.com/adambynes/configbackup.git
         ;;
     add)
 	cd $backup; 
-	git checkout ./vim/.netrwhist
+	rm .w3m/w3mtmp* .w3m/w3msrc* .w3m/w3mcache* .w3m/w3mcookie*
 	git add -u .; git commit -m "`date`"
         ;;
  

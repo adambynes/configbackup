@@ -4,7 +4,12 @@ case $1 in
 	mpstat -P ALL -u
         ;;
     www)
+	sudo echo test
+	export https_proxy="http://127.0.0.1:8123"
+	export http_proxy="http://127.0.0.1:8123"
+	sudo polipo socksParentProxy=localhost:1080 &
 	cd ~/web;w3m https://www.bing.com
+#sslocal -c /etc/shadowsocks/config.json
         ;;
     mpi)
 	mpstat -P $2 1 
@@ -15,6 +20,12 @@ case $1 in
         ;;
     psr)
 	ps -mo pid,tid,%cpu,psr -p `pidof $2`
+        ;;
+    pss)
+	ps -Lo ppid,sid,pgid,pid,tid,%cpu,psr,command -p `pgrep $2`
+        ;;
+    pssp)
+	ps -Lo ppid,sid,pgid,pid,tid,%cpu,psr,command -p $2
         ;;
     make_app)
         echo "build the dpdk app in the current folder";
