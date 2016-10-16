@@ -5,6 +5,9 @@ case $1 in
         ;;
     www)
 	sudo echo test
+	pkill -9 polipo
+	pkill -9 sslocal
+#sslocal -c /etc/shadowsocks/config.json
 	export https_proxy="http://127.0.0.1:8123"
 	export http_proxy="http://127.0.0.1:8123"
 	sudo polipo socksParentProxy=localhost:1080 &

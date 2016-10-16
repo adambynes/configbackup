@@ -41,7 +41,6 @@ https://wiki.linaro.org/
 file:///home/adambynes/web/bing.com
 http://baidu.com/
 http://cn.bing.com/
-http://www.baidu.com/
 http://www.baidu.com/baidu.html?from=noscript
 http://www.baidu.com/s?wd=ppt&rsv_bp=0
 http://www.baidu.com/s?wd=ppt&oq=ppt&ie=utf-8&rsv_pq=eb2d456700070d32&rsv_t=c8bdJLstsKp0A9cdeQFBpWQpqNzXBXU%2FPw0VmV5%2BuhczjaGaPdPBnR2ENn8&rqlang=cn&nojs=1&bqid=eb2d456700070d32
@@ -52,4 +51,8 @@ https://github.com/jpirko/libteam
 https://www.google.com/search?ie=ISO-8859-1&hl=en&source=hp&biw=&bih=&q=this+is+so+good&btnG=Google+Search&gbv=1
 https://www.bing.com/search?q=try&go=SUBMIT&qs=ds&form=QBLH
 https://www.google.com/
+file:///home/adambynes/web/www.baidu.com
+http://www.baidu.com/
 https://www.bing.com/
+file:///home/adambynes/web/www.google.com
+http://www.google.com/
