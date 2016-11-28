@@ -1,12 +1,27 @@
 #!/bin/bash
 exename=$(basename $0)
 echo $exename
-case $exename in
-    oigrep)
-	grep -n --include "$3" --color -r "$1" $2
+case $1 in
+    caseb)
+	#grep -n --include "$3" --color -r "$1" $2
+	grep -n --exclude=*cscope.out --exclude=tags --color  -r "\\b$2\\b" . $3
+
         ;;
-    ogrep)
-	grep -n --color -i  -r "$1" $2
+    case)
+	#grep -n --include "$3" --color -r "$1" $2
+	grep -n --exclude=*cscope.out --exclude=tags --color  -r "$2" . $3
+
+        ;;
+    exclude)
+	#grep -n --include "$3" --color -r "$1" $2
+	grep -n --exclude=*cscope.out --exclude=tags --color  --include "$3" -r "\\b$2\\b" . $4
+
+        ;;
+    normalb)
+	grep -n --exclude=*cscope* --exclude=tags --color -i  -r "\\b$2\\b" . $3
+        ;;
+    normal)
+	grep -n --exclude=*cscope* --exclude=tags --color -i  -r "$2" . $3
         ;;
     ofind)
 	find $2 -iname "*$1*"
