@@ -23,6 +23,10 @@ nmap csf :cs find f <C-R>=expand("<cfile>")<CR><CR>
 
 nmap csv :cs find g 
 nmap csq :q<CR> 
+nmap csql <C-W>l:q<CR> 
+nmap csqh <C-W>h:q<CR> 
+nmap wwl 30<C-W>> 
+nmap wws 30<C-W>< 
 nmap csh :sp<CR> 
 nmap csu :vs<CR> 
 nmap csi :exe Adammax()<CR> 
@@ -154,3 +158,4 @@ if has("cscope") && filereadable("/usr/bin/cscope")
    endif
    set csverb
 endif
+nmap csp csu<C-w>lcsg
