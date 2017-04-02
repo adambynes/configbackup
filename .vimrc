@@ -125,12 +125,13 @@ set laststatus=2
 set encoding=utf-8
 set t_Co=256
 "set cursorline
-nmap <C-c> :set cursorline<CR>:set cursorcolumnCR>
-nmap <C-n><C-c> :set nocursorline<CR>:set nocursorcolumnCR>
+nmap <C-c> :set cursorline<CR>:set cursorcolumn<CR>
+nmap <C-n><C-c> :set nocursorline<CR>:set nocursorcolumn<CR>
 hi CursorLine   cterm=NONE ctermbg=yellow ctermfg=black guibg=darkred guifg=white
 hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-hi Cursor cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-hi CursorIM cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+"hi Cursor cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+"hi CursorIM cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi Cursor ctermbg=15 ctermfg=8
 cnoremap <c-a> <C-B>
 "nmap qq :q<CR>
 "nmap du <C-w>k
