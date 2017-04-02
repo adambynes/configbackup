@@ -17,7 +17,7 @@ nmap csg :cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap csc :cs find c <C-R>=expand("<cword>")<CR><CR>
 nmap cst :cs find t <C-R>=expand("<cword>")<CR><CR>
 nmap cse :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap csf :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"nmap csf :cs find f <C-R>=expand("<cfile>")<CR><CR>
 "nmap csi :cs find i <C-R>=expand("<cfile>")<CR><CR>
 "nmap csd :cs find d <C-R>=expand("<cword>")<CR><CR>
 
@@ -125,8 +125,12 @@ set laststatus=2
 set encoding=utf-8
 set t_Co=256
 "set cursorline
-nmap <C-c> :set cursorline<CR>
-nmap <C-n><C-c> :set nocursorline<CR>
+nmap <C-c> :set cursorline<CR>:set cursorcolumnCR>
+nmap <C-n><C-c> :set nocursorline<CR>:set nocursorcolumnCR>
+hi CursorLine   cterm=NONE ctermbg=yellow ctermfg=black guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi Cursor cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorIM cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 cnoremap <c-a> <C-B>
 "nmap qq :q<CR>
 "nmap du <C-w>k
@@ -159,3 +163,4 @@ if has("cscope") && filereadable("/usr/bin/cscope")
    set csverb
 endif
 nmap csp csu<C-w>lcsg
+nmap csi csu<C-w>lcsc
