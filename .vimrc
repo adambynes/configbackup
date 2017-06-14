@@ -165,3 +165,6 @@ if has("cscope") && filereadable("/usr/bin/cscope")
 endif
 nmap csp csu<C-w>lcsg
 nmap csi csu<C-w>lcsc
+
+filetype plugin on
+syntax on
