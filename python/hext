@@ -1,0 +1,46 @@
+#!/usr/bin/python
+import sys, getopt
+
+def h2b(hex):
+        return bin(int(hex,16))
+
+def main(argv):
+   inputfile = ''
+   outputfile = ''
+   try:
+      opts, args = getopt.getopt(argv,"h:i:o:e:",["htb=","htd=","dtb=","dth=","btd=","bth="])
+   except getopt.GetoptError:
+      print 'hext --htb hextobinary --htd hextodecimal' 
+      print 'hext --dtb decimaltobinary --dth decimaltohex' 
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt in ('-h', '--htb'):
+         print 'now tranfer the hex to binary'
+         tem=h2b(arg)           
+         print tem
+         sys.exit()
+      elif opt in ( "--htd"):
+         print 'now tranfer the hex to decimal'
+         tem=(int(arg,16))
+         print tem
+         sys.exit()
+      elif opt in ( "--dtb"):
+         print 'now tranfer the decimal to binary'
+         tem=(bin(int(arg)))
+         print tem
+         sys.exit()
+      elif opt in ( "--dth"):
+         print 'now tranfer the decimal to hex'
+         tem=hex(int(arg))
+         print tem
+         sys.exit()
+      elif opt in ("-o", "--ofile"):
+         outputfile = arg
+      elif opt in ("-e"):
+         tem = eval(arg)
+         print "the evaluation value is"
+         print tem
+
+
+main(sys.argv[1:])
+
