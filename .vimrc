@@ -70,7 +70,7 @@ nmap <C-e> $
 nmap <C-a> ^
 nmap <C-u> [[o#if 0<Esc>][O#endif<Esc> 
 nmap <C-u><C-m> [[jdd<Esc>][kdd<Esc> 
-nmap <C-u>m  <Esc>:r !date<CR>i/*Adam Tao@cisco edited at <Esc>$a*/<Esc> 
+nmap <C-u>m  <Esc>:r !date +\%D<CR>i/* Adam Tao@huawei edited at <Esc>$a */<Esc> 
 "nmap <Tab> i<Space><Space><Space><Space><Esc>
 nnoremap <silent>  tlt :TlistToggle<CR>
 nnoremap <silent>  tlu :TlistUpdate<CR>
@@ -137,7 +137,7 @@ cnoremap <c-a> <C-B>
 "nmap du <C-w>k
 "nmap dd <C-w>u
 set ww=b,s,h,l
-"set expandtab
+set expandtab
 set nu
 
 " abbreviates 
@@ -165,6 +165,12 @@ if has("cscope") && filereadable("/usr/bin/cscope")
 endif
 nmap csp csu<C-w>lcsg
 nmap csi csu<C-w>lcsc
+nmap cs1 ^c0<TAB><ESC>
+nmap cs2 ^c0<TAB><TAB><ESC>
+nmap cs3 ^c0<TAB><TAB><TAB><ESC>
+nmap csm <ESC>:<UP><CR>
 
 filetype plugin on
 syntax on
+
+
