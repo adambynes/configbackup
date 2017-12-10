@@ -14,12 +14,7 @@ case $1 in
         ;;
     exclude)
 	#grep -n --include "$3" --color -r "$1" $2
-	grep -n --exclude=*cscope.out --exclude=tags -i --color  --include "$3" -r "$2" . $4
-
-        ;;
-    excludeb)
-	#grep -n --include "$3" --color -r "$1" $2
-	grep -n --exclude=*cscope.out --exclude=tags -i --color  --include "$3" -r "\\b$2\\b" . $4
+	grep -n --exclude=*cscope.out --exclude=tags --color  --include "$3" -r "\\b$2\\b" . $4
 
         ;;
     normalb)
@@ -28,11 +23,12 @@ case $1 in
     normal)
 	grep -n --exclude=*cscope* --exclude=tags --color -i  -r "$2" . $3
         ;;
-    include)
-	grep -n --exclude=*cscope* --exclude=tags --color --include="$2"  -i  -r "$3" . $4
-        ;;
     ofind)
 	find $2 -iname "*$1*"
+        ;;
+    gfind)
+	find $4 -iname "*$2*" -exec grep -i $3 \{\} \+
+	#find $4 -iname "*$2*" -exec grep -i $3 {} \;
         ;;
     mpi)
 	mpstat -P $2 1 
