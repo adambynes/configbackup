@@ -12,7 +12,16 @@ case $1 in
 	grep -n --exclude=*cscope.out --exclude=tags --color  -r "$2" . $3
 
         ;;
+    fgrep)
+	find . -iname "*$2*" -exec grep -H -n $3 {} +;
+	#find . -iname "*$2*" -exec cat {} \;
+        ;;
     exclude)
+	#grep -n --include "$3" --color -r "$1" $2
+	grep -n --exclude=*cscope.out --exclude=tags --color  --include "$3" -r "\\b$2\\b" . $4
+
+        ;;
+    include)
 	#grep -n --include "$3" --color -r "$1" $2
 	grep -n --exclude=*cscope.out --exclude=tags --color  --include "$3" -r "\\b$2\\b" . $4
 
@@ -25,10 +34,6 @@ case $1 in
         ;;
     ofind)
 	find $2 -iname "*$1*"
-        ;;
-    gfind)
-	find $4 -iname "*$2*" -exec grep -i $3 \{\} \+
-	#find $4 -iname "*$2*" -exec grep -i $3 {} \;
         ;;
     mpi)
 	mpstat -P $2 1 
